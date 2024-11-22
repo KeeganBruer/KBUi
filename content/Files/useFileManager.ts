@@ -1,5 +1,4 @@
 //@ts-nocheck
-
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react"
 import { hash } from "@/Utils/hash_func";
 
@@ -16,6 +15,9 @@ export class FileManager {
     constructor(files: FileStatus[], setFiles: Dispatch<SetStateAction<FileStatus[]>>) {
         this.files = files;
         this.setFiles = setFiles;
+    }
+    hasFiles() {
+        return this.files.length != 0;
     }
     addFiles(_files: File[]) {
         let file_statuses:FileStatus[] = _files.map(f => ({

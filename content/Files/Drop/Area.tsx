@@ -1,18 +1,13 @@
 //@ts-nocheck
-
 "use client";
 
 import { FileManagerType } from "@/Hooks/Files/useFileManager";
 import { useRef, useState } from "react";
-export default (props: { children?: any, className?: string, fileManager:FileManagerType}) => {
+export default (props: { children?: any, className?: string, fileManager:FileManagerType, accepts:string[]}) => {
     let coverRef = useRef<HTMLDivElement>(null)
     let fileManager = props.fileManager;
-    const handleDrop = async (ev:any) => {
-        ev.preventDefault();
-        if (coverRef.current != undefined) {
-            coverRef.current.style.display = "none"
-        }
-        let files: any[] = [];
+    const getFilesFromEvent = (ev: any) => {
+        let files: File[] = [];
         if (ev.dataTransfer.items) {
             files = [...ev.dataTransfer.items].map((item, i) => {
                 if (item.kind === "file") {
@@ -24,23 +19,44 @@ export default (props: { children?: any, className?: string, fileManager:FileMan
         } else {
             files = [...ev.dataTransfer.files]
         }
-        fileManager.addFiles(files);
+        return files;
+    }
+    const handleDrop = async (ev:any) => {
+        ev.preventDefault();
+        //Hide the Drop Cover
+        if (coverRef.current != undefined) {
+            coverRef.current.style.display = "none"
+        }
+        //Get Dropped Items as Files
+        let files = getFilesFromEvent(ev);
+        let acceptedFiles = files.filter(f => props.accepts.includes(`.${f?.name.split(".").slice(-1)[0]}`))
+        //Add Files to File Manager
+        fileManager.addFiles(acceptedFiles);
     }
     return (
-        <div className={props.className} style={{position:"relative"}} onDragOver={(e) => {
-            e.preventDefault()
-            if (coverRef.current == undefined) return;
-            coverRef.current.style.display = "flex"
-            console.log("drag over")
-        }} onDragLeave={() => {
-            if (coverRef.current == undefined) return;
-            coverRef.current.style.display = "none"
-        }} onDrop={handleDrop}>
-            <div ref={coverRef}
+        <div
+            className={props.className}
+            style={{ position: "relative" }}
+            onDragOver={(e) => {
+                e.preventDefault()
+                //Show Drag Cover on Drag Over
+                if (coverRef.current == undefined) return;
+                coverRef.current.style.display = "flex"
+            }}
+            onDragLeave={() => {
+                //Hide Drop Cover
+                if (coverRef.current == undefined) return;
+                coverRef.current.style.display = "none"
+            }}
+            onDrop={handleDrop}
+        >
+            <div
+                id="drop_cover"
+                ref={coverRef}
                 className="flex items-center justify-center"
                 style={{ display: "none", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(20, 20, 20, 0.8)", color: "white" }}
             >
-                Drop File
+                Drop Files Here
             </div>
             {props.children}
         </div>
