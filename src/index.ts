@@ -3,7 +3,6 @@ import yargs from "yargs"
 import os from "os"
 import { hideBin } from 'yargs/helpers'
 import path from "path";
-import Lookup from "./lookup";
 import { copyFile, copyFileSync, mkdir, mkdirSync, readFileSync, writeFileSync } from "fs";
 
 yargs(hideBin(process.argv))
@@ -24,6 +23,12 @@ async function InstallCommand(argv: yargs.ArgumentsCamelCase<{}>) {
     let local_content_array = local_content.split(path.sep)
     let command_loc = process.cwd();
     let loc_array = command_loc.split(path.sep)
+    let fetch_url = `https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/content/lookup.json`
+    let res = await fetch(fetch_url);
+    if (res.status != 200) {
+        return;
+    }
+    let Lookup = await res.json();
     let content = Lookup[argv.id as string];
     for (let item of content) {
         let src_loc = [...local_content_array, "content", ...item.src].join(path.sep)
