@@ -9,8 +9,18 @@ KBUi is a ReactJS and Tailwind based UI Library aiming to provide functional, fl
 
 
 ## Usage
+> [!NOTE]
+> Please read about the project structure that this library recommends for installation.
+
+To get started you'll need to open a terminal in the project's root directory and run the following command to create the config file `kbui.jsonc`.
+
 ```bash
-npx kbui install <id>
+npx kbui init
+```
+
+Once you have the config file included, run the install command to download the prebuilt components and hooks.
+```bash
+npx kbui install <package_id>
 ```
 
 ## Current Packages

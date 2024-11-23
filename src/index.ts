@@ -14,8 +14,8 @@ yargs(hideBin(process.argv))
     .command('init', 'Create a default kbui.jsonc file in the current directory', (yargs) => {
             
     }, (args)=>InitCommand(configs, args))
-    .command('install <id>', 'Install content specified by the ID', (yargs) => {
-        yargs.positional('id', {
+    .command('install <package_id>', 'Install content specified by the ID', (yargs) => {
+        yargs.positional('package_id', {
             describe: 'content ID',
             type: 'string',
           })
