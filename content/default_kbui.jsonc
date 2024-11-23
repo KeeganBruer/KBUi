@@ -1,0 +1,19 @@
+
+{
+/*
+    Used to search for package meta info based on ID.
+    type: {
+        [package_id:string]: {
+            "dependencies":[],
+            "files": {
+                src_url:string,
+                dst_path:string
+            }[]
+        }
+    }
+*/
+    "package_library":"https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/content/lookup.json",
+    
+    //Location relative to root (location of kbui.jsonc) without proceeding "./"
+    "install_location":"src"
+}
