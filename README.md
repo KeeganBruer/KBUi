@@ -18,6 +18,11 @@ To get started you'll need to open a terminal in the project's root directory an
 npx kbui init
 ```
 
+Or, If you want to get started with our NextJs Template. Run the following command
+```bash
+npx kbui project init <project_name>
+```
+
 Once you have the config file included, run the install command to download the prebuilt components and hooks.
 ```bash
 npx kbui install <package_id>

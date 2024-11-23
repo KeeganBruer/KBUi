@@ -6,6 +6,7 @@ import path from "path";
 import * as fs from "fs";
 import InstallCommand from "./Commands/Install";
 import InitCommand from "./Commands/Init";
+import ProjectInitCommand from "./Commands/ProjectInit";
 import { ProjectConfigs } from "./ProjectConfigs";
 
 let configs = new ProjectConfigs();
@@ -16,7 +17,7 @@ yargs(hideBin(process.argv))
     }, (args)=>InitCommand(configs, args))
     .command('project init', 'Create a Nextjs Template with KBUi configured', (yargs) => {
             
-    }, (args)=>InitCommand(configs, args))
+    }, (args)=>ProjectInitCommand(configs, args))
     .command('install <package_id>', 'Install content specified by the ID', (yargs) => {
         yargs.positional('package_id', {
             describe: 'content ID',
