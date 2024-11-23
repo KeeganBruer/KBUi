@@ -31,5 +31,13 @@
                 "dst":[]
             }
         ]
+    },
+    "error_catch":{
+        "files":[
+            {
+                "src":["withErrorCatch.ts"],
+                "dst":["Hooks", "withErrorCatch.ts"]
+            }
+        ]
     }
 }

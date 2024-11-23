@@ -1,5 +1,6 @@
 import path from "path"
 import * as fs from "fs";
+import { withAsyncErrorCatch, withSyncErrorCatch } from "./withErrorCatch";
 
 export class ProjectConfigs {
     cwd: string[]
@@ -10,9 +11,16 @@ export class ProjectConfigs {
         this.cwd = _cwd.split(path.sep)
         let configLoc = [...this.cwd, "kbui.jsonc"].join(path.sep)
         
+        let res = withSyncErrorCatch(() => {
+            return fs.readFileSync(configLoc, { encoding: "utf-8" })
+        })
         //Read text from config location
-        let text = fs.readFileSync(configLoc, { encoding: "utf-8" })
-        
+        if (res.error) {
+            this.install_location = []
+            this.package_library = ""
+            return;
+        }
+        let text = res.getData();
         //clean comments from json file
         var comments = new RegExp("\\s+//.*", 'mg');
         var multi_line = new RegExp("\\s+/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/", 'mg');
