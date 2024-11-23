@@ -13,10 +13,12 @@ export type PackageMetaType = {
  * The Package Manager
  */
 export class PackageManager {
+    isReady: boolean = false;
     LOOKUP: {
         [key: string]: PackageMetaType
     } = {}
-    constructor(configs:ProjectConfigs) {
+    constructor(configs: ProjectConfigs) {
+        this.isReady = false;
         (async () => {
             //Get Package Lookup Dict
             let fetch_url = configs.package_library;
@@ -25,11 +27,23 @@ export class PackageManager {
                 return;
             }
             this.LOOKUP = await res.json();
-        })
+            this.isReady = true;
+        })()
     }
 
-    getPackageMeta(id: string) {
-        return new ContentPackage(this.LOOKUP[id])
+    async getPackageMeta(id: string) {
+        await new Promise<void>((res) => {
+            const loop = () => {
+                if (this.isReady) return res();
+                setTimeout(() => {
+                    loop();
+                }, 100)
+            }
+            loop();
+        })
+        let meta = this.LOOKUP[id];
+        if (meta == undefined) return undefined;
+        return new ContentPackage(meta)
     }
 }
 

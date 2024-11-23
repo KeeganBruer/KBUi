@@ -14,7 +14,9 @@ export default async function Command(configs:ProjectConfigs, argv: yargs.Argume
     
     let manager = new PackageManager(configs)
     
-    let packageMeta = manager.getPackageMeta(argv.package_id as string)
+    let packageMeta = await manager.getPackageMeta(argv.package_id as string)
     
+    if (packageMeta == undefined) return;
+
     packageMeta.install(location)
 }
