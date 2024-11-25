@@ -36,5 +36,23 @@
                 "dst":["Hooks", "withErrorCatch.ts"]
             }
         ]
+    },
+    "popover":{
+        "dependencies":["@floating-ui/react-dom"],
+        "files":[
+            {
+                "src":[],
+                "dst":[]
+            }
+        ]
+    },
+    "uuid":{
+        "dependencies":[],
+        "files":[
+            {
+                "src": ["Utils", "uuidv4.ts"],
+                "dst": ["Utils", "uuidv4.ts"]
+            }
+        ]
     }
 }

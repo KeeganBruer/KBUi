@@ -12,7 +12,7 @@ export default async function Command(configs:ProjectConfigs, argv: yargs.Argume
     let command_loc = process.cwd();
     let _cwd = command_loc.split(path.sep);
     let config_path = [..._cwd, "temp.zip"].join(path.sep);
-    let project_path = [..._cwd, "dist"].join(path.sep);
+    let project_path = [..._cwd, argv.project_name].join(path.sep);
     let res = await fetch(`https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/content/nextjs_w_kbui.zip`);
     if (res.status != 200) {
         console.log("problem fetching file")
