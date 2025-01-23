@@ -67,7 +67,7 @@ class ContentPackage {
 async function InstallFile(file:{dst:string[], src:string[]}, location:string[]) {
     //Install Details
     let install_loc = [...location, ...file.dst].join(path.sep)
-    let install_loc_folder = install_loc.split(path.sep).slice(-1).join(path.sep)
+    let install_loc_folder = install_loc.split(path.sep).slice(0, -1).join(path.sep)
     if (fs.existsSync(install_loc) == true) {
         return;
     }
