@@ -39,7 +39,7 @@ async function InitNextJS(InitConfigs: any) {
         project_path
     } = InitConfigs;
 
-    let res = await fetch(`https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/content/nextjs_w_kbui.zip`);
+    let res = await fetch(`https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/content/template.zip`);
     if (res.status != 200) {
         console.log("problem fetching file")
         process.exit() ;
@@ -64,7 +64,7 @@ async function InitReactNative(InitConfigs: any) {
         project_path
     } = InitConfigs;
 
-    let res = await fetch(`https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/content/reactnaitve_w_kbui.zip`);
+    let res = await fetch(`https://raw.githubusercontent.com/KeeganBruer/KBUi/refs/heads/main/native_content/template.zip`);
     if (res.status != 200) {
         console.log("problem fetching file")
         process.exit() ;
